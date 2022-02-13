@@ -9,6 +9,7 @@ class ListMannagerSeriesController {
       ListMannagerSeriesUseCase
     );
     const all = await listMannagerSeriesUseCase.execute();
+    response.header("Access-Control-Allow-Origin", "*");
 
     return response.json(all);
   }
