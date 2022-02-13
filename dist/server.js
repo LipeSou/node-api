@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
+const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
@@ -14,6 +15,11 @@ const routes_1 = require("./routes");
 dotenv_1.default.config();
 const app = express_1.default();
 app.use(express_1.default.json());
+app.use((request, response, next) => {
+    response.header("Access-Control-Allow-Origin", "*");
+    app.use(cors_1.default());
+    next();
+});
 app.use(routes_1.router);
 app.use((err, request, response, next) => {
     if (err instanceof AppError_1.AppError) {
@@ -25,6 +31,7 @@ app.use((err, request, response, next) => {
         status: "error",
         message: `Internal server error - ${err.message}`,
     });
+    next();
 });
 app.get("/", (request, response) => {
     response.send("Olá mundo");

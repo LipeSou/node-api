@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import cors from "cors";
 import dotenv from "dotenv";
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, response, Response } from "express";
 import "express-async-errors";
 import "./database";
 
@@ -14,9 +14,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: true }));
-
 app.use(express.json());
+
+app.use((request: Request, response: Response, next: NextFunction) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  app.use(cors());
+  next();
+});
 
 app.use(router);
 
@@ -32,6 +36,7 @@ app.use(
       status: "error",
       message: `Internal server error - ${err.message}`,
     });
+    next();
   }
 );
 
