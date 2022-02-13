@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const fitness_routes_1 = require("./fitness.routes");
+const mannagerSeries_routes_1 = require("./mannagerSeries.routes");
+const router = express_1.Router();
+exports.router = router;
+router.use("/felipefitness", fitness_routes_1.fitnessRoutes);
+router.use("/mannagerseries", mannagerSeries_routes_1.mannagerSeriesRoutes);

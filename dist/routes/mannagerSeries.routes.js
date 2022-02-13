@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mannagerSeriesRoutes = void 0;
+const express_1 = require("express");
+const CreateMannagerSeriesController_1 = require("../modules/mannagerSeries/useCases/createMannagerSeries/CreateMannagerSeriesController");
+const ListMannagerSeriesController_1 = require("../modules/mannagerSeries/useCases/listMannagerSeries/ListMannagerSeriesController");
+const mannagerSeriesRoutes = express_1.Router();
+exports.mannagerSeriesRoutes = mannagerSeriesRoutes;
+const createMannagerSeriesController = new CreateMannagerSeriesController_1.CreateMannagerSeriesController();
+const listMannagerSeriesController = new ListMannagerSeriesController_1.ListMannagerSeriesController();
+mannagerSeriesRoutes.post("/", createMannagerSeriesController.handle);
+mannagerSeriesRoutes.get("/", listMannagerSeriesController.handle);
